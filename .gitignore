@@ -1,0 +1,9 @@
+# Dependencies
+website/node_modules
+
+# Production
+website/build
+
+# Generated files
+.docusaurus
+.cache-loader
