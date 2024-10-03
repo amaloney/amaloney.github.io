@@ -1,6 +1,8 @@
 import {themes as prismThemes} from 'prism-react-renderer'
 import type {Config} from '@docusaurus/types'
 import type * as Preset from '@docusaurus/preset-classic'
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
 
 const config: Config = {
     title: 'Andy Maloney',
@@ -38,6 +40,8 @@ const config: Config = {
                     onInlineTags: 'warn',
                     onInlineAuthors: 'warn',
                     onUntruncatedBlogPosts: 'warn',
+                    remarkPlugins: [remarkMath],
+                    rehypePlugins: [rehypeKatex],
                 },
                 theme: {
                     customCss: './src/css/custom.css',
@@ -103,8 +107,8 @@ const config: Config = {
             copyright: `Copyright © ${new Date().getFullYear()} Andy Maloney. Built with Docusaurus.`,
         },
         prism: {
-            theme: prismThemes.github,
-            darkTheme: prismThemes.dracula,
+            theme: prismThemes.duotoneLight,
+            darkTheme: prismThemes.duotoneDark,
         },
     } satisfies Preset.ThemeConfig,
 }

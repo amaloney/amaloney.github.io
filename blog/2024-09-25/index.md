@@ -7,6 +7,8 @@ tags: [docusaurus]
 
 How to create a project page using GitHub Pages and Docusaurus.
 
+{/* truncate */}
+
 I have used Docusaurus in the past to create documentation pages for tools. One of the
 nicest features of Docusaurus is that you can create MDX (markdown with React) files
 with content. My previous use case with Docusaurus was generating tutorial pages

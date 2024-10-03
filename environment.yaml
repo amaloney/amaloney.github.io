@@ -4,8 +4,33 @@ channels:
   - conda-forge
 
 dependencies:
-  - python >3.10,<3.12
+  - python <3.13
 
-  # Package manager
+  # Package managers
   - nodejs
   - pip
+
+  # Jupyterlab
+  - jupyterlab
+  - jupyterlab-katex
+  - jupyterlab-spellchecker
+  - jupyterlab-unfold
+  - jupyterlab_code_formatter
+
+  # Markdown
+  - mdformat
+  - mdformat-frontmatter
+  - mdformat-myst
+  - pip:
+    - mdformat_tables
+
+  # Code hygiene
+  - black
+  - isort
+
+  # Development
+  - preliz
+  - pymc
+
+  # Plotting
+  - bokeh
