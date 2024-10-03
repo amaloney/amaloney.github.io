@@ -1,12 +1,10 @@
-# Dependencies
+# JavaScript
 node_modules
 
-# Production
-build
-
-# Generated files
-.docusaurus
-.cache-loader
-
-# Jupyter
+# Python
+__pycache__
 .ipynb_checkpoints
+
+# Docusaurus
+.docusaurus
+build

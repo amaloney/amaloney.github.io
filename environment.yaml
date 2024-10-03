@@ -4,7 +4,7 @@ channels:
   - conda-forge
 
 dependencies:
-  - python >3.10,<3.12
+  - python <3.13
 
   # Package managers
   - nodejs
@@ -30,3 +30,7 @@ dependencies:
 
   # Development
   - preliz
+  - pymc
+
+  # Plotting
+  - bokeh
