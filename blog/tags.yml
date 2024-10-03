@@ -2,3 +2,7 @@ docusaurus:
   label: Docusaurus
   permalink: /docusaurus
   description: Docusaurus tag description
+preliz:
+  label: PreliZ
+  permalink: /preliz
+  description: Bayesian prior elicitation
