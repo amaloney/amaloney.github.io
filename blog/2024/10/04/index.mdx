@@ -1,0 +1,74 @@
+---
+slug: arviz-monorepo
+title: ArviZ as a monorepo
+authors: [amaloney]
+tags: [arviz]
+---
+
+ArviZ is undergoing a huge refactor, making it easier to install. Instead of having to
+install the entire ArviZ package, we are moving to a polyrepo where plots are
+disentangled from statistics computations.
+
+<!-- truncate -->
+
+This is an upgrade for the user experience as we no longer need to install heavy
+requirements found in the current version of ArviZ, when all one needs/wants is to use
+it to plot a KDE given an xarray `DataTree` or `InferenceData` object.
+
+Work has already started on the polyrepo design. I am fortunate enough to have started
+going to the ArviZ 1.0 meetings where I was able to bring up the concept of a monorepo
+instead of the current polyrepo design. The reason why I mentioned the monorepo
+architecture for ArviZ comes from this issue
+[https://github.com/arviz-devs/arviz-base/issues/21](https://github.com/arviz-devs/arviz-base/issues/21)
+where we are discussing how to validate user input to the new methods. After looking at
+the [arviz-base](https://github.com/arviz-devs/arviz-base) repo's requirements for this
+feature as well as the [arviz-stats](https://github.com/arviz-devs/arviz-stats) repo's
+requirements, it became apparent that we would be duplicating code across the different
+repos.
+
+A monorepo has its own set of challenges that will be discussed as I try to implement
+the architecture in ArviZ. Polyrepos have their own challenges that I will mostly
+ignore, only to make small observations if they are needed. One of the first things to
+decide when creating a monorepo is the tool to use for the build system. I have used
+Buck in the past, and have read about Bazel, but the one I have decided to try first is
+called [pants](https://www.pantsbuild.org).
+
+It's important to point out that `pants` is not the package manager we will use for
+ArviZ. It is the **build** tool needed to transform the polyrepo into a monorepo.
+
+Using the [pants documentation](https://www.pantsbuild.org/stable/docs/getting-started/)
+I created a `pants.toml` file.
+
+```toml
+[GLOBAL]
+pants_version = "2.22.0"
+backend_packages = [
+    "pants.backend.python",
+    # Code hygiene
+    "pants.backend.python.lint.black",
+    "pants.backend.python.lint.docformatter",
+    "pants.backend.python.lint.flake8",
+    "pants.backend.python.lint.isort",
+    "pants.backend.python.lint.pydocstyle",
+    "pants.backend.python.lint.pylint",
+    "pants.backend.tools.taplo",
+]
+build_ignore = [
+    "asv_benchmarks",
+    "doc",
+    "examples",
+]
+
+[anonymous-telemetry]
+enabled = false
+
+[source]
+root_patterns = [
+    "arviz/arviz-base/src",
+    "arviz/arviz-plots/src",
+    "arviz/arviz-stats/src",
+]
+
+[test]
+use_coverage = true
+```
